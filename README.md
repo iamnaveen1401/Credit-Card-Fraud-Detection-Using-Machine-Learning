@@ -2,54 +2,102 @@
 
 ## 🧾 Project Overview
 
-With the rise of online payments, detecting fraudulent credit card transactions has become a critical challenge. This project aims to develop a robust machine learning model that accurately identifies fraudulent transactions in real-time. The model helps financial institutions minimize financial losses and improve transaction security while maintaining a low false-positive rate.
+With increasing online financial transactions, fraud detection has become a crucial area of interest for financial institutions. This project focuses on detecting fraudulent credit card transactions using machine learning. It builds and evaluates various classification models to classify transactions as fraudulent or legitimate with high precision and recall, especially considering the imbalanced nature of real-world fraud datasets.
 
-## 📁 Dataset
+---
+
+## 🎯 Problem Statement
+
+Financial fraud results in billions of dollars in losses annually. Detecting fraudulent credit card transactions early helps in reducing these losses. However, fraud detection is challenging due to:
+
+- Highly imbalanced datasets (fraudulent transactions are rare)
+- Need for fast, real-time predictions
+- Avoiding too many false positives (which inconvenience users)
+
+This project addresses these challenges by building an end-to-end machine learning pipeline that includes preprocessing, handling class imbalance, and comparing different ML algorithms.
+
+---
+
+## 📁 Dataset Information
 
 - **Source**: [Credit Card Transactions Dataset](https://raw.githubusercontent.com/ArchanaInsights/Datasets/refs/heads/main/credit_card_transactions.csv)
-- **Attributes**:
-  - `Transaction_ID`, `Card_Type`, `Merchant_Category`, `Transaction_Amount`, `Location`, `Region`, etc.
-  - `Is_Fraudulent`: Target variable indicating fraud status (Yes/No)
+- **Size**: ~30,000 records
+- **Target Column**: `Is_Fraudulent` (Yes/No)
+- **Key Features**:
+  - `Transaction_ID`, `Transaction_Amount`
+  - `Merchant_Category`, `Card_Type`, `Use_Chip`, `Online_Order`
+  - `Location`, `Time`, `Device_Type`, `Entry_Mode`
 
-## 🔍 Key Steps
+---
 
-### 1. Exploratory Data Analysis (EDA)
-- Analyzed categorical features like card type, merchant category, and device type
-- Visualized transaction patterns for fraud vs. non-fraud
+## 📊 Exploratory Data Analysis (EDA)
 
-### 2. Data Preprocessing
-- Handled missing values using KNNImputer and other imputation techniques
-- Removed outliers and transformed skewed features
-- Scaled numerical features for consistency
+- Analyzed fraud vs. non-fraud distribution
+- Explored transaction amounts, regions, and merchant categories
+- Found trends such as higher fraud in online orders and specific merchant types
+- Identified that fraud often involves high transaction amounts or certain card types
 
-### 3. Feature Engineering & Selection
-- Encoded categorical features using one-hot and label encoding
-- Selected important features for model input
+---
 
-### 4. Model Building & Evaluation
-- Trained multiple classification models:
-  - Logistic Regression
-  - Random Forest
-  - Support Vector Machine (SVM)
-  - K-Nearest Neighbors (KNN)
-  - Naive Bayes
-- Evaluated models using:
-  - Accuracy
-  - Precision
-  - Recall
-  - F1-Score
-  - Confusion Matrix
+## 🧹 Data Preprocessing
+
+- **Missing Values**: Imputed using KNN Imputer
+- **Outlier Handling**: Removed extreme transaction amounts
+- **Categorical Encoding**:
+  - Label Encoding for binary columns
+  - One-Hot Encoding for categorical features with multiple classes
+- **Feature Scaling**: Applied StandardScaler on continuous features
+- **Duplicates**: Removed duplicates based on `Transaction_ID`
+
+---
+
+## ⚖️ Handling Class Imbalance
+
+- Fraudulent transactions make up a very small fraction of the dataset
+- Instead of synthetic oversampling, focused on:
+  - Stratified train-test split
+  - Emphasizing **recall** and **F1-score** for the fraud class
+  - Selecting models with balanced performance
+
+---
+
+## 🧠 Model Building & Evaluation
+
+### ML Algorithms Applied:
+- Logistic Regression
+- Random Forest Classifier ✅ (Best performing)
+- K-Nearest Neighbors (KNN)
+- Support Vector Machine (SVM)
+- Naive Bayes
+
+### Evaluation Metrics:
+- Accuracy
+- Precision
+- Recall (key focus)
+- F1-score
+- Confusion Matrix
+
+**✅ Logistic Regression Results:**
+- Strong recall for fraud detection
+- Balanced precision/recall
+- Lowest false negatives among all tested models
+
+**Best Model Performance (Random Forest Classifier):**
+- High recall and precision for the minority fraud class
+- Balanced accuracy for both classes
 
 ## 🛠️ Technologies Used
-- Python
-- Pandas, NumPy
-- Matplotlib, Seaborn
-- Scikit-learn
-- Jupyter Notebook
+
+- **Language**: Python
+- **Libraries**: Pandas, NumPy, Scikit-learn, Matplotlib, Seaborn
+- **Tools**: Jupyter Notebook, GitHub
+- **ML Techniques**: Supervised classification, encoding, scaling, performance evaluation
 
 ## 📊 Results
-- Achieved high performance with optimal model based on F1-score
-- Successfully reduced false positives while maintaining high fraud detection rate
+- Achieved strong fraud detection accuracy using Random Forest
+- Built a scalable ML pipeline for fraud detection
+- Demonstrated importance of feature scaling, encoding, and class balancing
 
 ## 📌 Conclusion
 This project demonstrates how machine learning can be used to enhance credit card fraud detection. It offers a practical framework that can be extended for real-time fraud prevention systems.
+
